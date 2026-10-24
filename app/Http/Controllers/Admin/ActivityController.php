@@ -75,20 +75,20 @@ class ActivityController extends Controller
             });
         }
 
-        $sessions = $sessionsQuery->limit(50)->get()->map(function ($s) use ($now, $fifteenMinutesAgo) {
+        $sessions = $sessionsQuery->limit(150)->get()->map(function ($s) use ($now, $fifteenMinutesAgo) {
             $diffSeconds = $now - $s->last_activity;
             if ($diffSeconds <= (15 * 60)) {
                 $s->status = 'online';
                 $s->status_label = 'Online';
-                $s->badge_class = 'bg-success';
+                $s->badge_class = 'bg-success-subtle text-success';
             } elseif ($diffSeconds <= (60 * 60)) {
                 $s->status = 'idle';
                 $s->status_label = 'Baru Saja';
-                $s->badge_class = 'bg-warning text-dark';
+                $s->badge_class = 'bg-warning-subtle text-warning';
             } else {
                 $s->status = 'offline';
-                $s->status_label = 'Tidak Aktif';
-                $s->badge_class = 'bg-secondary';
+                $s->status_label = 'Offline';
+                $s->badge_class = 'bg-secondary-subtle text-secondary';
             }
 
             $s->time_ago = Carbon::createFromTimestamp($s->last_activity)->diffForHumans();
@@ -108,15 +108,7 @@ class ActivityController extends Controller
             $salesQuery->where('sales.store_id', $selectedStoreId);
         }
 
-        if ($search) {
-            $salesQuery->where(function ($q) use ($search) {
-                $q->where('sales.receipt_number', 'like', "%{$search}%")
-                  ->orWhere('sales.customer_name', 'like', "%{$search}%")
-                  ->orWhere('stores.name', 'like', "%{$search}%");
-            });
-        }
-
-        $recentSales = $salesQuery->limit(50)->get();
+        $recentSales = $salesQuery->limit(200)->get();
 
         // 5. Tab 3: Pergerakan Stok & Inventaris
         $stockQuery = StockMovement::with(['product'])
@@ -128,7 +120,7 @@ class ActivityController extends Controller
             $stockQuery->where('stock_movements.store_id', $selectedStoreId);
         }
 
-        $recentStockMovements = $stockQuery->limit(50)->get();
+        $recentStockMovements = $stockQuery->limit(200)->get();
 
         // 6. Tab 4: Audit Log Sistem
         $auditQuery = ActivityLog::with(['user', 'store'])
@@ -138,14 +130,7 @@ class ActivityController extends Controller
             $auditQuery->where('store_id', $selectedStoreId);
         }
 
-        if ($search) {
-            $auditQuery->where(function ($q) use ($search) {
-                $q->where('description', 'like', "%{$search}%")
-                  ->orWhere('action', 'like', "%{$search}%");
-            });
-        }
-
-        $auditLogs = $auditQuery->limit(50)->get();
+        $auditLogs = $auditQuery->limit(200)->get();
 
         // 7. Toko Teraktif (Top 5 berdasarkan total transaksi)
         $topStores = Store::withCount('sales')

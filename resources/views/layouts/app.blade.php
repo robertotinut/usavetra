@@ -31,7 +31,7 @@
         @stack('css')
     </head>
 
-    <body>
+    <body data-sidebar-size="lg">
         <!-- Begin page -->
         <div id="layout-wrapper">
             
@@ -546,6 +546,11 @@
         
         <script>
             $(document).ready(function() {
+                // Pastikan sidebar selalu terbuka (expanded) secara default di layar desktop/laptop
+                if ($(window).width() >= 992) {
+                    $('body').attr('data-sidebar-size', 'lg');
+                }
+
                 // Pastikan feather icons dirender
                 if (typeof feather !== 'undefined') {
                     feather.replace();
@@ -562,6 +567,11 @@
                                 feather.replace(); // re-render ikon feather jika ada pagination
                             }
                         }
+                    });
+
+                    // Sesuaikan lebar kolom saat tab Bootstrap berganti
+                    $('a[data-bs-toggle="tab"], button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+                        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
                     });
                 }
             });
