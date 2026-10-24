@@ -1,0 +1,538 @@
+/**
+ * Usavetra Mobile App Experience CSS
+ * Mobile-first native POS & Navigation enhancements
+ */
+
+/* Safe Area Inset Support */
+:root {
+    --mobile-nav-height: 64px;
+    --mobile-primary: #0ca678;
+    --mobile-primary-dark: #099268;
+    --mobile-primary-soft: rgba(12, 166, 120, 0.12);
+    --mobile-bg-gray: #f8f9fa;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (max-width: 991.98px) {
+    /* Layout & Spacing adjustments */
+    body {
+        padding-bottom: calc(var(--mobile-nav-height) + var(--safe-bottom) + 12px) !important;
+        background-color: #f6f8fb;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    #layout-wrapper {
+        min-height: 100vh;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+
+    .page-content {
+        padding: 14px 10px calc(var(--mobile-nav-height) + 20px) 10px !important;
+    }
+
+    /* Topbar Mobile Refinement */
+    #page-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        background: #ffffff;
+    }
+
+    .navbar-header {
+        padding: 0 12px !important;
+        height: 56px;
+    }
+
+    .navbar-brand-box {
+        display: flex !important;
+        align-items: center;
+        width: auto !important;
+        padding: 0 !important;
+    }
+
+    /* Hide desktop vertical menu toggle on mobile */
+    #vertical-menu-btn {
+        display: none !important;
+    }
+
+    .footer {
+        display: none !important;
+    }
+
+    /* Fixed Bottom Navigation Bar */
+    .mobile-bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: calc(var(--mobile-nav-height) + var(--safe-bottom));
+        padding-bottom: var(--safe-bottom);
+        background: #ffffff;
+        border-top: 1px solid #eef0f3;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        z-index: 1040;
+        box-shadow: 0 -3px 12px rgba(0,0,0,0.05);
+    }
+
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        height: 100%;
+        color: #74788d;
+        text-decoration: none !important;
+        font-size: 11px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        position: relative;
+        padding-top: 4px;
+    }
+
+    .mobile-nav-item i {
+        font-size: 22px;
+        margin-bottom: 2px;
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .mobile-nav-item.active {
+        color: var(--mobile-primary);
+        font-weight: 700;
+    }
+
+    .mobile-nav-item.active i {
+        transform: translateY(-2px);
+        color: var(--mobile-primary);
+    }
+
+    /* Center Highlighted POS Button in Nav */
+    .mobile-nav-item.pos-center-btn {
+        position: relative;
+        top: -14px;
+    }
+
+    .mobile-nav-item.pos-center-btn .pos-btn-inner {
+        width: 52px;
+        height: 52px;
+        background: linear-gradient(135deg, #0ca678 0%, #087f5b 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        box-shadow: 0 6px 16px rgba(12, 166, 120, 0.4);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .mobile-nav-item.pos-center-btn .pos-btn-inner i {
+        font-size: 26px;
+        margin-bottom: 0;
+        color: #ffffff !important;
+    }
+
+    .mobile-nav-item.pos-center-btn:active .pos-btn-inner {
+        transform: scale(0.92);
+        box-shadow: 0 2px 8px rgba(12, 166, 120, 0.4);
+    }
+
+    .mobile-nav-item.pos-center-btn span {
+        margin-top: 4px;
+        font-size: 11px;
+        color: #495057;
+        font-weight: 600;
+    }
+
+    .mobile-nav-item.pos-center-btn.active span {
+        color: var(--mobile-primary);
+    }
+
+    /* Mobile Drawer Offcanvas */
+    .mobile-drawer {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .mobile-drawer-header {
+        border-bottom: 1px solid #f0f2f5;
+        padding: 16px 20px;
+    }
+
+    .mobile-menu-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .mobile-menu-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background: #f8f9fa;
+        border-radius: 14px;
+        padding: 14px 8px;
+        color: #495057;
+        text-decoration: none !important;
+        transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .mobile-menu-card:active {
+        transform: scale(0.95);
+        background: #eef2f5;
+    }
+
+    .mobile-menu-card .menu-icon-box {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+
+    .mobile-menu-card span {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.2;
+    }
+}
+
+@media (min-width: 992px) {
+    .mobile-bottom-nav {
+        display: none !important;
+    }
+}
+
+/* =======================================================
+   POS (MESIN KASIR) MOBILE EXPERIENCE
+   ======================================================= */
+
+/* Horizontally Scrollable Category Pills */
+.pos-categories-wrapper {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 8px;
+    padding: 6px 2px 12px 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+
+.pos-categories-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.category-pill-btn {
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #495057;
+    padding: 7px 15px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.category-pill-btn:active {
+    transform: scale(0.94);
+}
+
+.category-pill-btn.active {
+    background: var(--mobile-primary);
+    color: #ffffff;
+    border-color: var(--mobile-primary);
+    box-shadow: 0 3px 8px rgba(12, 166, 120, 0.3);
+    font-weight: 600;
+}
+
+/* Product Grid Layout */
+.pos-products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding-bottom: 90px;
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .pos-products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .pos-products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .pos-products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        padding-bottom: 20px;
+    }
+}
+
+/* Modern Compact Product Card */
+.pos-card {
+    background: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 14px;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+.pos-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: #cbd5e1;
+}
+
+.pos-card:active {
+    transform: scale(0.96);
+    background-color: #f8fafc;
+}
+
+.pos-card.in-cart {
+    border-color: var(--mobile-primary);
+    background: #f4fbf8;
+}
+
+.pos-card .card-icon-container {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #e6fcf5;
+    color: var(--mobile-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto 8px auto;
+}
+
+.pos-card.stock-empty .card-icon-container {
+    background: #ffe3e3;
+    color: #e03131;
+}
+
+.pos-card .product-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2b2d42;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 34px;
+}
+
+.pos-card .product-code {
+    font-size: 10.5px;
+    color: #8d99ae;
+    text-align: center;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pos-card .product-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0ca678;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.pos-card .stock-pill {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+/* Instant Cart Count Badge on the Product Card */
+.pos-card .item-qty-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #0ca678;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Floating Sticky Cart Bar for Mobile */
+.pos-mobile-cart-bar {
+    position: fixed;
+    bottom: calc(var(--mobile-nav-height) + var(--safe-bottom) + 10px);
+    left: 12px;
+    right: 12px;
+    background: #212529;
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1030;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    animation: slideUpBar 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUpBar {
+    from { transform: translateY(80px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.pos-mobile-cart-bar .cart-info-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pos-mobile-cart-bar .cart-icon-bubble {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    position: relative;
+}
+
+.pos-mobile-cart-bar .cart-icon-bubble .badge-total-qty {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff6b6b;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+.pos-mobile-cart-bar .cart-prices {
+    display: flex;
+    flex-direction: column;
+}
+
+.pos-mobile-cart-bar .cart-prices .price-title {
+    font-size: 10.5px;
+    color: #adb5bd;
+    line-height: 1;
+}
+
+.pos-mobile-cart-bar .cart-prices .price-total {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.3;
+}
+
+.pos-mobile-cart-bar .btn-checkout-fast {
+    background: #0ca678;
+    color: #ffffff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 13.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+}
+
+.pos-mobile-cart-bar .btn-checkout-fast:active {
+    transform: scale(0.95);
+    background: #099268;
+}
+
+/* Quick Cash Nominal Buttons */
+.quick-cash-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.quick-cash-btn {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 4px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+}
+
+.quick-cash-btn:hover {
+    border-color: #cbd5e1;
+    background: #f1f5f9;
+}
+
+.quick-cash-btn:active {
+    transform: scale(0.94);
+}
+
+.quick-cash-btn.active {
+    background: #e6fcf5 !important;
+    border-color: #0ca678 !important;
+    color: #0ca678 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 3px 10px rgba(12, 166, 120, 0.2);
+}
