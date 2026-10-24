@@ -72,5 +72,9 @@ Route::middleware('auth')->group(function () {
         
         // Manajemen Pengguna
         Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+
+        // Monitoring Aktivitas Pengguna
+        Route::get('/activities', [App\Http\Controllers\Admin\ActivityController::class, 'index'])->name('activities.index');
+        Route::delete('/activities/sessions/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'destroySession'])->name('activities.destroy-session');
     });
 });

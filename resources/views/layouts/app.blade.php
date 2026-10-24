@@ -194,6 +194,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ route('admin.activities.index') }}">
+                                    <i data-feather="activity"></i>
+                                    <span data-key="t-activities">Monitoring Aktivitas</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('admin.packages.index') }}">
                                     <i data-feather="package"></i>
                                     <span data-key="t-paket">Kelola Paket</span>
@@ -440,6 +446,10 @@
                     <a href="{{ route('admin.packages.index') }}" class="mobile-menu-card">
                         <div class="menu-icon-box bg-warning-subtle text-warning"><i class="mdi mdi-package-variant"></i></div>
                         <span>Paket SaaS</span>
+                    </a>
+                    <a href="{{ route('admin.activities.index') }}" class="mobile-menu-card">
+                        <div class="menu-icon-box bg-success-subtle text-success"><i class="mdi mdi-pulse"></i></div>
+                        <span>Aktivitas</span>
                     </a>
                     @endif
 

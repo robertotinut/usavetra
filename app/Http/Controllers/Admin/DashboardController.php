@@ -15,6 +15,20 @@ class DashboardController extends Controller
         $totalPackages = DB::table('packages')->count();
         $activeSubscriptions = DB::table('subscriptions')->where('status', 'active')->count();
 
-        return view('admin.dashboard', compact('totalStores', 'totalUsers', 'totalPackages', 'activeSubscriptions'));
+        $fifteenMinutesAgo = time() - (15 * 60);
+        $onlineUsers = DB::table('sessions')
+            ->whereNotNull('user_id')
+            ->where('last_activity', '>=', $fifteenMinutesAgo)
+            ->distinct('user_id')
+            ->count('user_id');
+
+        $recentSales = DB::table('sales')
+            ->join('stores', 'sales.store_id', '=', 'stores.id')
+            ->select('sales.receipt_number', 'sales.total_amount', 'sales.payment_method', 'sales.created_at', 'stores.name as store_name')
+            ->orderBy('sales.created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('admin.dashboard', compact('totalStores', 'totalUsers', 'totalPackages', 'activeSubscriptions', 'onlineUsers', 'recentSales'));
     }
 }

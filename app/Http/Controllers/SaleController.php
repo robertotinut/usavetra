@@ -121,6 +121,18 @@ class SaleController extends Controller
 
             DB::commit();
 
+            \App\Models\ActivityLog::record(
+                'sale_created',
+                'Transaksi ' . $sale->receipt_number . ' senilai Rp ' . number_format($sale->total_amount, 0, ',', '.') . ' (' . $sale->payment_method . ') berhasil diproses.',
+                $sale,
+                [
+                    'receipt_number' => $sale->receipt_number,
+                    'total_amount' => $sale->total_amount,
+                    'payment_method' => $sale->payment_method,
+                    'customer_name' => $sale->customer_name
+                ]
+            );
+
             if ($request->ajax() || $request->wantsJson()) {
                 $nextId = $sale->id + 1;
                 $newReceiptNumber = 'TRC-' . date('Ymd') . '-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
